@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "assume_github" {
     condition {
       test     = "StringLike"
       variable = "${local.github_oidc_domain}:sub"
-      values   = ["repo:${local.reponame}"]
+      values   = ["repo:${local.reponame}:*"]
     }
   }
 }
