@@ -28,6 +28,19 @@ resource "aws_iam_role_policy_attachment" "readonlyaccess_for_github" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
+resource "aws_iam_role_policy" "sts" {
+  name   = "stspolicy"
+  role   = aws_iam_role.github_readonly.name
+  policy = data.aws_iam_policy_document.sts.json
+}
+
+data "aws_iam_policy_document" "sts" {
+  statement {
+    actions   = ["sts:GetCallerIdentity"]
+    resources = ["*"]
+  }
+}
+
 data "aws_iam_policy_document" "assume_github" {
   statement {
     actions = [
