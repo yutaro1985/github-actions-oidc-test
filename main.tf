@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 locals {
-  github_oidc_domain = "vstoken.actions.githubusercontent.com"
+  github_oidc_domain = "token.actions.githubusercontent.com"
   reponame           = "yutaro1985/github-actions-oidc-test"
 }
 
@@ -64,6 +64,6 @@ data "aws_iam_policy_document" "assume_github" {
 # Idpの定義
 resource "aws_iam_openid_connect_provider" "github" {
   url             = "https://${local.github_oidc_domain}"
-  client_id_list  = ["sigstore"]
+  client_id_list  = ["https://github.com/yutaro1985"]
   thumbprint_list = ["a031c46782e6e6c662c2c87c76da9aa62ccabd8e"]
 }
